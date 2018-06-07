@@ -1,4 +1,5 @@
-import React, {Component} from 'react'
+import React from 'react';
+import PropTypes from 'prop-types';
 
 function Book(props){
     return (
@@ -13,11 +14,14 @@ function Book(props){
                 }
               }></div>
               <div className="book-shelf-changer">
-                <select>
-                  <option value="none" disabled>Move to...</option>
-                  <option value="currentlyReading">Currently Reading</option>
-                  <option value="wantToRead">Want to Read</option>
-                  <option value="read">Read</option>
+                <select
+                  value = {props.book.shelf}
+                  onChange =  {(event) =>props.updateShelfForBook(props.book, event.target.value)}
+                >
+                  <option value="None" disabled>Move to...</option>
+                  <option value="Currently Reading">Currently Reading</option>
+                  <option value="Want to Read">Want to Read</option>
+                  <option value="Read">Read</option>
                   <option value="none">None</option>
                 </select>
               </div>
@@ -29,4 +33,11 @@ function Book(props){
     )
 }
 
+Book.propTypes = {
+  book: PropTypes.object.isRequired,
+}
+
 export default Book;
+
+
+//onClick={()=>props.onDeleteContact()}

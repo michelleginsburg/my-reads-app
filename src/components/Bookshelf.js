@@ -1,5 +1,6 @@
 import React from 'react';
 import Book from'./Book.js';
+import PropTypes from 'prop-types';
 
 //Stateless Functional Component
 function BookShelf(props){
@@ -13,13 +14,22 @@ function BookShelf(props){
                 	<ol className="books-grid">
                 		{/*List each book component out using map function*/}
                 		{props.selectedBooks.map((book, index)=>
-                			<Book key= {index} book = {book}/>
+                			<Book
+                                key= {index}
+                                book = {book}
+                                updateShelfForBook = {props.updateShelfForBook}
+                            />
                 		)}
                     </ol>
                 </div>
             </div>
 		)
 }
+
+BookShelf.propTypes = {
+  selectedBooks: PropTypes.array.isRequired,
+}
+
 export default BookShelf;
 
 
