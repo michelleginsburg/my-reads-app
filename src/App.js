@@ -1,10 +1,10 @@
-import React, { Component } from 'react';
+import React from 'react';
 import * as BooksAPI from './BooksAPI';
 import './App.css';
 
 import BookShelf from'./components/BookShelf.js';
 
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 
 
 
@@ -19,42 +19,36 @@ class BooksApp extends React.Component {
      * pages, as well as provide a good URL they can bookmark and share.
      */
     books : [
-                {
-                "backgroundImage" : "http://books.google.com/books/content?id=uu1mC6zWNTwC&printsec=frontcover&img=1&zoom=1&imgtk=AFLRE73pGHfBNSsJG9Y8kRBpmLUft9O4BfItHioHolWNKOdLavw-SLcXADy3CPAfJ0_qMb18RmCa7Ds1cTdpM3dxAGJs8zfCfm8c6ggBIjzKT7XR5FIB53HHOhnsT7a0Cc-PpneWq9zX&source=gbs_api",
-                "shelf" : "Read", //Want to Read, Read, None, Currently Reading
-                "bookTitle": "FirstTitle",
-                "bookAuthor": "1David McCullough"
-                },
-                {
-                "backgroundImage" : "http://books.google.com/books/content?id=uu1mC6zWNTwC&printsec=frontcover&img=1&zoom=1&imgtk=AFLRE73pGHfBNSsJG9Y8kRBpmLUft9O4BfItHioHolWNKOdLavw-SLcXADy3CPAfJ0_qMb18RmCa7Ds1cTdpM3dxAGJs8zfCfm8c6ggBIjzKT7XR5FIB53HHOhnsT7a0Cc-PpneWq9zX&source=gbs_api",
-                "shelf" : "Want to Read", //Want to Read, Read, None, Currently Reading
-                "bookTitle": "SecondTitle",
-                "bookAuthor": "2David McCullough"
-                },
-                {
-                "backgroundImage" : "http://books.google.com/books/content?id=uu1mC6zWNTwC&printsec=frontcover&img=1&zoom=1&imgtk=AFLRE73pGHfBNSsJG9Y8kRBpmLUft9O4BfItHioHolWNKOdLavw-SLcXADy3CPAfJ0_qMb18RmCa7Ds1cTdpM3dxAGJs8zfCfm8c6ggBIjzKT7XR5FIB53HHOhnsT7a0Cc-PpneWq9zX&source=gbs_api",
-                "shelf" : "Want to Read", //Want to Read, Read, None, Currently Reading
-                "bookTitle": "ThirdTitle",
-                "bookAuthor": "3dddaaad"
-                },
-                {
-                "backgroundImage" : "http://books.google.com/books/content?id=uu1mC6zWNTwC&printsec=frontcover&img=1&zoom=1&imgtk=AFLRE73pGHfBNSsJG9Y8kRBpmLUft9O4BfItHioHolWNKOdLavw-SLcXADy3CPAfJ0_qMb18RmCa7Ds1cTdpM3dxAGJs8zfCfm8c6ggBIjzKT7XR5FIB53HHOhnsT7a0Cc-PpneWq9zX&source=gbs_api",
-                "shelf" : "Currently Reading", //Want to Read, Read, None, Currently Reading
-                "bookTitle": "ForthTitle",
-                "bookAuthor": "4David McCullough"
-                }
-              ],
+
+                // {
+                // "backgroundImage" : "http://books.google.com/books/content?id=uu1mC6zWNTwC&printsec=frontcover&img=1&zoom=1&imgtk=AFLRE73pGHfBNSsJG9Y8kRBpmLUft9O4BfItHioHolWNKOdLavw-SLcXADy3CPAfJ0_qMb18RmCa7Ds1cTdpM3dxAGJs8zfCfm8c6ggBIjzKT7XR5FIB53HHOhnsT7a0Cc-PpneWq9zX&source=gbs_api",
+                // "shelf" : "Read", //Want to Read, Read, None, Currently Reading
+                // "bookTitle": "FirstTitle",
+                // "bookAuthor": "1David McCullough"
+    ],
+
     showSearchPage: false
   }
-  //Update the shelf if a selection for shelf of a book is changed.
-  updateShelfForBook = (book, newShelf)=>{
-    this.setState((previousState)=>({
-    books: previousState.books.map((b)=>{
-       if(b.bookTitle===book.bookTitle)
-           b.shelf = newShelf;
-      return b;
-    })
-   }))
+
+  /*Get the books avaliable on the bookshelf using the BookAPI getAll method*/
+  componentWillMount(){  //invoked immediately before the component is inserted into the DOM
+    BooksAPI.getAll().then(books=>{
+        this.setState({books});
+        });
+  }
+
+  /*Update the shelf if a shelf selection is changed, if 'none' selected remove that book.*/
+  updateShelfForBook = (selectedBook, newShelf)=>{
+    //Update book on front end.
+    this.setState((prevState)=>({//Internal note: the state will be updated next time react calls render.
+        books:  prevState.books.map(book=>{ //Updatebooks to current shelves
+                  if(book.id===selectedBook.id)
+                    book.shelf = newShelf;
+                  return book;
+                }).filter(b=>b.shelf!=='none') //remove from list if book selection is 'none'.
+    }));
+    //Update serverside with change.
+    BooksAPI.update(selectedBook, newShelf);
   }
 
  render() {
@@ -91,17 +85,17 @@ class BooksApp extends React.Component {
                       <div>
                             <BookShelf
                               title="Currently Reading"
-                              selectedBooks={this.state.books.filter(book=>book.shelf==="Currently Reading")}
+                              selectedBooks={this.state.books.filter(book=>book.shelf==="currentlyReading")}
                               updateShelfForBook = {this.updateShelfForBook}
                             />
                             <BookShelf
                               title="Want to Read"
-                              selectedBooks={this.state.books.filter(book=>book.shelf==="Want to Read")}
+                              selectedBooks={this.state.books.filter(book=>book.shelf==="wantToRead")}
                               updateShelfForBook = {this.updateShelfForBook}
                             />
                             <BookShelf
                               title="Read"
-                              selectedBooks={this.state.books.filter(book=>book.shelf==="Read")}
+                              selectedBooks={this.state.books.filter(book=>book.shelf==="read")}
                               updateShelfForBook = {this.updateShelfForBook}
                             />
                       </div>
@@ -120,5 +114,4 @@ class BooksApp extends React.Component {
 
 
 export default BooksApp
-
 

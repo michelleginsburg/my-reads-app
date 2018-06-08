@@ -2,9 +2,11 @@ import React from 'react';
 import Book from'./Book.js';
 import PropTypes from 'prop-types';
 
-//Stateless Functional Component
+/**
+Component BookShelf using stateless functional component
+App->BookShelf->Book
+*/
 function BookShelf(props){
-
 		return (
         	<div className="bookshelf">
                 <h2 className="bookshelf-title">
@@ -26,6 +28,7 @@ function BookShelf(props){
 		)
 }
 
+/*Make sure the bookshelf prop is an array or flag an error*/
 BookShelf.propTypes = {
   selectedBooks: PropTypes.array.isRequired,
 }
