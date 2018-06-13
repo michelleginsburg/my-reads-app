@@ -15,13 +15,15 @@ function BookShelf(props){
                 <div className="bookshelf-books">
                 	<ol className="books-grid">
                 		{/*List each book component out using map function*/}
-                		{props.selectedBooks.map((book, index)=>
-                			<Book
-                                key= {index}
-                                book = {book}
-                                updateShelfForBook = {props.updateShelfForBook}
-                            />
-                		)}
+                        {props.selectedBooks.map(book => (
+
+                                 <Book
+                                     key = {book.id}
+                                     book = {book}
+                                     updateShelfForBook = {props.updateShelfForBook}
+                                 />
+
+                         ))}
                     </ol>
                 </div>
             </div>
@@ -34,5 +36,4 @@ BookShelf.propTypes = {
 }
 
 export default BookShelf;
-
 

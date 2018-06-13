@@ -5,6 +5,7 @@ Component Book using stateless functional component
 App->BookShelf->Book
 */
 function Book(props){
+
     return (
         <li>
           <div className="book">
@@ -30,10 +31,8 @@ function Book(props){
               </div>
             </div>
             <div className="book-title">{props.book.title}</div>
-            {/*Map over each author and display them*/}
-            {props.book.authors.map((author, index)=>(
-              <div className="book-authors" key ={index}>{author}</div>
-            ))}
+              {/*Seperate the authors of the books*/}
+              <div className="book-authors">{props.book.authors && props.book.authors.join(' & ') }</div>
           </div>
         </li>
     )

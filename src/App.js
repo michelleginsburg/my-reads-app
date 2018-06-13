@@ -3,9 +3,8 @@ import * as BooksAPI from './BooksAPI';
 import './App.css';
 
 import BookShelf from'./components/BookShelf.js';
-
+import Search from './components/Search.js';
 // import PropTypes from 'prop-types';
-
 
 
 
@@ -18,16 +17,8 @@ class BooksApp extends React.Component {
      * users can use the browser's back and forward buttons to navigate between
      * pages, as well as provide a good URL they can bookmark and share.
      */
-    books : [
-
-                // {
-                // "backgroundImage" : "http://books.google.com/books/content?id=uu1mC6zWNTwC&printsec=frontcover&img=1&zoom=1&imgtk=AFLRE73pGHfBNSsJG9Y8kRBpmLUft9O4BfItHioHolWNKOdLavw-SLcXADy3CPAfJ0_qMb18RmCa7Ds1cTdpM3dxAGJs8zfCfm8c6ggBIjzKT7XR5FIB53HHOhnsT7a0Cc-PpneWq9zX&source=gbs_api",
-                // "shelf" : "Read", //Want to Read, Read, None, Currently Reading
-                // "bookTitle": "FirstTitle",
-                // "bookAuthor": "1David McCullough"
-    ],
-
-    showSearchPage: false
+    books : [],
+    showSearchPage: true,
   }
 
   /*Get the books avaliable on the bookshelf using the BookAPI getAll method*/
@@ -37,44 +28,39 @@ class BooksApp extends React.Component {
         });
   }
 
+  //TO DO: Update the book object to include new books choosen
+
   /*Update the shelf if a shelf selection is changed, if 'none' selected remove that book.*/
+ //Search results on the search page allow the user to select “currently reading”, “want to read”, or “read” to place the book in a certain shelf.
   updateShelfForBook = (selectedBook, newShelf)=>{
     //Update book on front end.
+   //ADD BOOK HERE from bookshelf using .splice(n, 0, selectedBook);
     this.setState((prevState)=>({//Internal note: the state will be updated next time react calls render.
-        books:  prevState.books.map(book=>{ //Updatebooks to current shelves
-                  if(book.id===selectedBook.id)
-                    book.shelf = newShelf;
-                  return book;
-                }).filter(b=>b.shelf!=='none') //remove from list if book selection is 'none'.
+        books:  prevState.books
+                  .map(book=>{ //Updatebooks to current shelves
+                    if(book.id===selectedBook.id)
+                      book.shelf = newShelf;
+                    return book;})
+                  .filter(b=>b.shelf!=='none') //remove from list if book selection is 'none'.
     }));
     //Update serverside with change.
     BooksAPI.update(selectedBook, newShelf);
+    console.log('updated');
   }
 
- render() {
+
+ render(){
     return (
       <div className="app">
-        {this.state.showSearchPage ? (
-          <div className="search-books">
-            <div className="search-books-bar">
-              <a className="close-search" onClick={() => this.setState({ showSearchPage: false })}>Close</a>
-              <div className="search-books-input-wrapper">
-                {/*
-                  NOTES: The search from BooksAPI is limited to a particular set of search terms.
-                  You can find these search terms here:
-                  https://github.com/udacity/reactnd-project-myreads-starter/blob/master/SEARCH_TERMS.md
-                  However, remember that the BooksAPI.search method DOES search by title or author. So, don't worry if
-                  you don't find a specific author or title. Every search is limited by search terms.
-                */}
-                <input type="text" placeholder="Search by title or author"/>
+        {/*!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!*/}
+        {this.state.showSearchPage ?
 
-              </div>
-            </div>
-            <div className="search-books-results">
-              <ol className="books-grid"></ol>
-            </div>
-          </div>
-        ) : (
+
+          <Search
+             updateShelfForBook = {this.updateShelfForBook}
+          />
+
+         :
           <div className="list-books">
 
                    {/*Start: Book Shelf*/}
@@ -106,7 +92,8 @@ class BooksApp extends React.Component {
               <a onClick={() => this.setState({ showSearchPage: true })}>Add a book</a>
             </div>
           </div>
-        )}
+        }
+        {/*!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!*/}
       </div>
     )
   }
