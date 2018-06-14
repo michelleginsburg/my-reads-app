@@ -62,6 +62,7 @@ class BooksApp extends React.Component {
             <Search
              updateShelfForBook = {this.updateShelfForBook}
              onNavigate = {this.onNavigate}
+             currentBooks ={this.state.books}
             />
         )}/>
         {/*Route/Display if on 'main' page*/}
