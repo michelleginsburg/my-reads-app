@@ -30,36 +30,57 @@ class Search extends Component {
 //4.Search results on the search page allow the user to select
 //“currently reading”, “want to read”, or “read” to place the book in a certain shelf.
 
+// 	//if book images are not included then make undefined.
+// 	if(!book.imageLinks) book.imageLinks = 'undefined';
+// 	//set as true if current book is in the search results
+// 	let inBookShelf = that.props.currentBooks.find((b) => b.id === book.id);
+// 	//if true set with current shelf, else set shelf as 'none'
+// 	book.shelf = inBookShelf ? that.props.currentBooks[index].shelf : 'none';
+// 	return book;
+
+
  handleQueryEvent = (query)=>{
  	this.setState({query})
- 	this.search(query.trim());
+ 	this.search(query);
  }
-
-//put these promises in some ordered array and read the 3...
-   search = (query) =>{
-   	console.log('in function');
-
-    	if(query.length===0){
-    		console.log('1')
-    		this.setState({searchResults:[]})//FINE WORKS
-  		} else {
-  				console.log('looking for results')
-  					BooksAPI.search(query)
-  							.then(results =>{
-  								if(!results.error)
-  									if(query===this.state.query){
-  									console.log('2')
-  									this.setState ({searchResults: results});
-  								}
-  								else{
-  									console.log('3')
-  									this.setState ({searchResults: []});
-  								}
-  							})
-  							.catch(this.setState ({searchResults: []})
-  							);
-  		//figure out why it does work for 'asd'
-  		}
+/**
+*Search function that takes a query and updates the
+*booksearch results array state with recieved books.
+*/
+search = (query) =>{
+	//Since it is a new query set the results screen to blank.
+	this.setState({searchResults:[]})
+	//If the query length is not zero.
+	if(query.length!==0){
+		let individualQuery = query.split(" ");
+		let that = this;
+		//will hold the search results for the query.
+		let resultsSummary = [];
+		//For each query (and if multiple) do the following
+		individualQuery.forEach((thisQuery)=>{
+			//trim the query so no spaces one either side
+			thisQuery = thisQuery.trim();
+			//If Query is not white spaces and does a length>0 ie actually a letter or word.
+			if(thisQuery.length !== 0 && thisQuery.indexOf(' ') !== 0  ){
+				//Call API search with the trimmed query
+				BooksAPI.search(thisQuery)
+						.then(results =>{
+							/*This line means that the book search results
+							of the latest query value (in input field)
+							are displayed and no other async requests for
+							previous query values (in input) are
+							displayed if they resolve later.
+							It also does not display anything if there is
+							an error in the results*/
+							if(!results.error && query===this.state.query){
+									//Add the results for the single query and add to the array
+									Array.prototype.push.apply(resultsSummary,results);
+									that.setState ({searchResults: resultsSummary});
+								}
+						})
+			}
+		});
+		}
   	}
 
   	render() {
@@ -100,113 +121,3 @@ class Search extends Component {
 }
 
 export default Search;
-
-
-  //   searchQuery = (query) =>{
-		// //Update the input field
-		// this.setState({query})
-		// let currentQueryNo = this.state.queryTotal+1;
-		// //Increment Query Tracking
-		// this.setState(prevState=>{
-		// 		prevState.queryTotal++;
-		// 		return({queryTotal: prevState.queryTotal})
-		// });
-
-	 //    if(query.length>0){
-		// 		BooksAPI.search(query).then(results => {
-		// 				if (!results.error){
-		// 					console.log(currentQueryNo+"###"+this.state.queryTotal)
-		// 					if(currentQueryNo===this.state.queryTotal){
-
-		// 								this.setState({searchResults: results});
-		// 					}
-
-
-		// 				}
-		// 		});
-		//    } else
-	 //         this.setState({searchResults:[]});
-
-
-  // 	}
-
-
-
-// searchQuery = (query) =>{
-	// 	//Update the input field
-	// 	this.setState({query})
-	// 	//Store results from multiple queries
-	// 	let resultsSummary = [];
-	// 	//Clear search results
-	//     this.setState({searchResults:[],showBooks: false});
-
-
-	//     if(query.trim().length>0){
-
-	// 		let queries = query.trim().split(" ");
-	// 		let that = this;
-	//     	queries.forEach(function(queryWord){
-	// 			BooksAPI.search(queryWord).then(results => {
-	// 					if (!results.error){
-	// 	             			results.map(book => {
-	// 	               				if(!book.imageLinks)
-	// 	                		 			book.imageLinks = 'undefined';
-
-	// 	                 			return book;
-	// 	               			})
-	// 							Array.prototype.push.apply(resultsSummary,results);
-	// 							that.setState({searchResults: resultsSummary});
-	// 	               		}
-	// 			});
-	//     	});
-	//     	this.setState({showBooks: true});
-
-	//     	//
-
-
-	// 	  } else {
-	//         	this.setState({searchResults:[],showBooks: false});
-
-	//       }
-
-
- //  	}
-
-
-
-
-   // search = (query) =>{
-   //  	if(query.length===0){
-  	// 		 this.setState({searchResults:[]});
-  	// 	} else {
-			// let queries = query.trim().split(" ");
-			// //console.log(queries);
-			// //increment count
-			// let resultsSummary = [];
-			// let that = this;
-  	// 		queries.forEach(function(queryWord){
-  	// 				BooksAPI.search(queryWord).then(results =>{
-			// 			if (!results.error){
-		 //             		results.map((book,index) => {
-		 //             			//if book images are not included then make undefined.
-		 //               			if(!book.imageLinks) book.imageLinks = 'undefined';
-		 //               			//set as true if current book is in the search results
-		 //               			let inBookShelf = that.props.currentBooks.find((b) => b.id === book.id);
-		 //               			//if true set with current shelf, else set shelf as 'none'
-   //                      		book.shelf = inBookShelf ? that.props.currentBooks[index].shelf : 'none';
-		 //                 		return book;
-		 //               			});
-		 //             		Array.prototype.push.apply(resultsSummary,results);
-	 	// 					that.setState({searchResults: resultsSummary});
-
-	 	// 					// console.log("return result:" + queryWord);//DEBUG HERE
-	 	// 				}
-	 	// 				else if(results.error){
-	 	// 					// console.log("return error:" + queryWord);//DEBUG HERE
-	 	// 					that.setState({searchResults: []});
-	 	// 				}
-
-  	// 				});
-  	// 		});
-  	// 	}
-  	// }
