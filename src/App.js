@@ -5,7 +5,7 @@ import { Route } from "react-router-dom";
 //Our Dependencies
 import * as BooksAPI from "./BooksAPI";
 import "./App.css";
-import BookShelf from"./components/BookShelf.js";
+import Bookshelf from"./components/Bookshelf.js";
 import Search from "./components/Search.js";
 
 /**
@@ -77,17 +77,17 @@ class BooksApp extends React.Component {
             </div>
             <div className="list-books-content">
               <div>
-                <BookShelf
+                <Bookshelf
                   title="Currently Reading"
                   selectedBooks={this.state.books.filter(book => book.shelf === "currentlyReading")}
                   updateShelfForBook={this.updateShelfForBook}
                 />
-                <BookShelf
+                <Bookshelf
                   title="Want to Read"
                   selectedBooks={this.state.books.filter(book => book.shelf === "wantToRead")}
                   updateShelfForBook={this.updateShelfForBook}
                 />
-                <BookShelf
+                <Bookshelf
                   title="Read"
                   selectedBooks={this.state.books.filter(book => book.shelf === "read")}
                   updateShelfForBook={this.updateShelfForBook}

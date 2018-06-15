@@ -8,7 +8,7 @@ import Book from"./Book.js";
 *Component BookShelf using stateless functional component
 *App->BookShelf->Book
 */
-function BookShelf(props){
+function Bookshelf(props){
 	return (
     	<div className="bookshelf">
             <h2 className="bookshelf-title">
@@ -31,11 +31,11 @@ function BookShelf(props){
 }
 
 //Flag an error if prop is incorrect type
-BookShelf.propTypes = {
+Bookshelf.propTypes = {
   selectedBooks: PropTypes.array.isRequired,
   title: PropTypes.string.isRequired,
   updateShelfForBook: PropTypes.func.isRequired
 }
 
-export default BookShelf;
+export default Bookshelf;
 
