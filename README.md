@@ -17,8 +17,6 @@ Enter an author's name or subject in the search bar to find more books.
 
 ## Available Scripts
 
-### Installing
-
 Note: Make sure you have the latest Node.js installed.<br>
 
 In the project directory, you can run:
