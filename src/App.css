@@ -14,6 +14,7 @@ body, .app {
   padding: 10px 0;
   background: #247fc9;
   text-align: center;
+  font-family: 'Cormorant', serif;
 }
 .list-books-title h1 {
   font-weight: 400;
@@ -38,6 +39,8 @@ body, .app {
 
 .bookshelf-title {
   border-bottom: 1px solid #dedede;
+  text-align: center;
+  font-family: 'Cormorant', serif;
 }
 .bookshelf-books {
   text-align: center;

@@ -4,24 +4,22 @@ This bookshelf application allows the user to manage and keep track of their rea
 
 ### Description
 
-Search for books by clicking green "Plus" button. Add new books to your collections. Manage your books by moving them between three bookshelves.
-
-Application to search book and add them to one of three lists:
+Application to search for books and add them to one of three lists:
 1. Currently Reading
 2. Want To Read
 3. Read
 
 ## How to Use the App
 Books are sorted into three categories: 'Currently Reading', 'Want to Read' and 'Read'
-To change a book's category or remove a book from the list, click on the green button on the book cover .
-To add new books, click on the green + button at the bottom of the page. 
+To change a book's category or remove a book from the list, click on the blue button on the book cover.
+To add new books, click on the blue + button at the bottom of the page. 
 Enter an author's name or subject in the search bar to find more books.
+
+## Available Scripts
 
 ### Installing
 
-Note: Make sure you have the latest Node.js installed.
-
-## Available Scripts
+Note: Make sure you have the latest Node.js installed.<br>
 
 In the project directory, you can run:
 
