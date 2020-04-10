@@ -1,33 +1,37 @@
-# MyReads React App
-By Jeremy Levett
+# MyReads- Reading Tracker App
 
-## About
-A React application for managing books to read/already read. Similar to Goodreads. 
+This bookshelf application allows the user to manage and keep track of their reading lists.
 
-The bookshelf app allows users to select and categorize books they have read, are currently reading, or want to read. Users can search for books and add books to their bookshelf. Data is persisted by the udacity backend server.
+### Description
 
-Originally just provided with a static css, html template (no react code). The project was to add interactivity to the app by refactoring it into a usuable react front end application.  There is an API server and client library that is used to persist information as you interact with the application.
+Search for books by clicking green "Plus" button. Add new books to your collections. Manage your books by moving them between three bookshelves.
 
-Code files that were created/edited for this project include the app.css. index.js, app.js file and all js files in the components directory.
+Application to search book and add them to one of three lists:
+1. Currently Reading
+2. Want To Read
+3. Read
 
-[APP HOSTED HERE. CLICK TO TRY IT OUT!](https://jlevett.github.io/Myreads-App-React/ "Live App Hosted Here")
+### Installing
 
+## Available Scripts
 
-![Gif](https://github.com/Jlevett/Myreads-App-React/blob/master/myreads.gif)
+In the project directory, you can run:
 
-Udacity Project Reviewer comment: 
-_"You've done a really AWESOME job on your project and showed a true understanding of React's fundamentals!"_
+### `npm start`
 
-## Features (need to make bullet points 
-- Display books
-- Shelf Update
-- Search single or multiple words
+Runs the app in the development mode.<br>
 
-## How to Use the App
-Books are sorted into three categories: 'Currently Reading', 'Want to Read' and 'Read'
-To change a book's category or remove a book from the list, click on the green button on the book cover .
-To add new books, click on the green + button at the bottom of the page. 
-Enter an author's name or subject in the search bar to find more books.
+### `npm test`
+
+Launches the test runner in the interactive watch mode.<br>
+
+### `npm run build`
+
+Builds the app for production to the `build` folder.<br>
+
+## Deployment
+
+`npm run build` creates a `build` directory with a production build of your app. Set up your favourite HTTP server so that a visitor to your site is served `index.html`, and requests to static paths like `/static/js/main.<hash>.js` are served with the contents of the `/static/js/main.<hash>.js` file.
 
 ## Local Installation 
 Note: Make sure you have the latest Node.js installed.
@@ -37,25 +41,32 @@ Note: Make sure you have the latest Node.js installed.
 4. Run 'npm start'.
 5. Open http://localhost:3000
 
-## Important
+## Built with
+
+* [React](https://reactjs.org/) - Text Editor
+* [Create React App](https://github.com/facebookincubator/create-react-app) - React scaffolding package
+* [React Router](https://github.com/ReactTraining/react-router) - Declarative routing for React
+* [Atom](https://atom.io) - Text Editor
+* [JavaScript ES6](https://developer.mozilla.org/en-US/docs/Web/JavaScript) - Programming Language
+* [HTML5](https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/HTML5) - Markup Language
+* [CSS3](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS3) - Styling
+* [Google Chrome](https://www.google.com/chrome/) - Browser and Debugging Tool
+
+
+## How to Use the App
+Books are sorted into three categories: 'Currently Reading', 'Want to Read' and 'Read'
+To change a book's category or remove a book from the list, click on the green button on the book cover .
+To add new books, click on the green + button at the bottom of the page. 
+Enter an author's name or subject in the search bar to find more books.
+
+## Important Note
 The backend API uses a fixed set of cached search results and is limited to a particular set of search terms, which can be found in [SEARCH_TERMS.md](https://github.com/Jlevett/Myreads-App-React/blob/master/SEARCH_TERMS.md). That list of terms are the _only_ terms that will work with the backend, so don't be surprised if your searches for Basket Weaving or Bubble Wrap don't come back with any results.
 
-## Technology
-- Reactjs
-- JSX
-- AJAX
-- JavaScript(ECMAScript) 6
-- React-router
+## Contributions
 
-## Screenshots 
+Contributions are not allowed for this project.
 
-Main Page
 
-![Image of App Desktop Main Page](https://github.com/Jlevett/Myreads-App-React/blob/master/main%20page.png)
 
-Search Page
 
-![Image of App Desktop Search Page](https://github.com/Jlevett/Myreads-App-React/blob/master/search%20page.png)
 
-## License
-This project is licensed under the MIT License - see the [LICENSE](https://github.com/Jlevett/Myreads-App-React/blob/master/LICENSE) file for details.
