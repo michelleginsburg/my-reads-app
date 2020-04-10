@@ -2,7 +2,7 @@
 
 This bookshelf application allows the user to manage and keep track of their reading lists.
 
-### Description
+## Description
 
 Application to search for books and add them to one of three lists:
 1. Currently Reading
