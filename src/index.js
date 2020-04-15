@@ -8,6 +8,6 @@ import App from "./App"
 import "./index.css"
 
 ReactDOM.render(
-	<BrowserRouter basename="/Myreads-App-React"><App/></BrowserRouter>,
+	<BrowserRouter><App/></BrowserRouter>,
 	document.getElementById("root")
 )
