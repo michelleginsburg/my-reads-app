@@ -15,6 +15,14 @@ To change a book's category or remove a book from the list, click on the blue bu
 To add new books, click on the blue + button at the bottom of the page. 
 Enter an author's name or subject in the search bar to find more books.
 
+## Demo
+
+![Demo](https://github.com/michelleginsburg/My-Reads-App/blob/master/public/mockup3.jpg)
+<p align="center">
+  <img src="https://github.com/michelleginsburg/My-Reads-App/blob/master/public/mockup.gif">
+</p>
+
+
 ## Available Scripts
 
 Note: Make sure you have the latest Node.js installed.<br>
